@@ -79,20 +79,45 @@ def generate_next_ticket_id(conn) -> str:
         next_num = 1
     return f"TKT-{next_num:03d}"
 
+# --- DYNAMIC FRONTEND DIRECTORY RESOLVER FOR CLOUD HOSTING ---
+# Look for 'Frontend' directory at root or one level up, fallback to creating it if missing
+base_dir = os.path.dirname(os.path.abspath(__file__))
+frontend_dir = os.path.join(base_dir, "Frontend")
+
+if not os.path.exists(frontend_dir):
+    frontend_dir = os.path.abspath(os.path.join(base_dir, "..", "Frontend"))
+
+if not os.path.exists(frontend_dir):
+    frontend_dir = os.path.abspath(os.path.join(base_dir, "Backend", "Frontend"))
+
+# Critical Fallback: If absolutely nowhere to be found, force create it to stop Starlette crashes
+if not os.path.exists(frontend_dir):
+    os.makedirs(frontend_dir, exist_ok=True)
+
+# Ensure an index.html file exists inside that folder so FileResponse does not crash
+sample_index = os.path.join(frontend_dir, "index.html")
+if not os.path.exists(sample_index):
+    with open(sample_index, "w") as f:
+        f.write("<h1>Datastraw CRM Frontend Loading Workspace</h1>")
+
+
 # Serve the main index.html page
 @app.get("/")
 def get_index():
-    frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Frontend"))
     index_path = os.path.join(frontend_dir, "index.html")
     if os.path.exists(index_path):
         return FileResponse(index_path)
+    
     # Fallback to dashboard code.html if index.html is not created yet
     fallback_path = os.path.join(frontend_dir, "support_crm_dashboard", "code.html")
-    return FileResponse(fallback_path)
+    if os.path.exists(fallback_path):
+        return FileResponse(fallback_path)
+        
+    return FileResponse(sample_index)
 
-# Mount the Frontend directory to serve static assets (like screen.png)
-frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Frontend"))
+# Mount the Frontend directory to serve static assets safely
 app.mount("/frontend", StaticFiles(directory=frontend_dir), name="frontend")
+
 
 # --- API Endpoints ---
 
@@ -309,6 +334,5 @@ def add_ticket_note(ticket_id: str, note: NoteCreate):
         conn.close()
 
 if __name__ == "__main__":
-    # pyrefly: ignore [missing-import]
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
