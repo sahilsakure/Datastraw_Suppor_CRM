@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Support CRM - CommandCenter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        if (localStorage.getItem("theme") === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#943700",
+                        "on-primary-fixed": "#00174b",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "on-tertiary-container": "#ffede6",
+                        "primary": "var(--primary)",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-low": "var(--surface-container-low)",
+                        "tertiary-container": "#bc4800",
+                        "secondary-container": "var(--secondary-container)",
+                        "on-surface-variant": "var(--on-surface-variant)",
+                        "surface": "var(--surface)",
+                        "background": "var(--background)",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-variant": "#e0e3e5",
+                        "outline-variant": "var(--outline-variant)",
+                        "secondary-fixed": "#d5e3fc",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-highest": "var(--surface-container-highest)",
+                        "on-primary-container": "#eeefff",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-lowest": "var(--surface-container-lowest)",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline": "var(--outline)",
+                        "on-secondary": "#ffffff",
+                        "on-background": "var(--on-background)",
+                        "primary-container": "#2563eb",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary-fixed": "#ffdbcd",
+                        "surface-container-high": "var(--surface-container-high)",
+                        "surface-bright": "var(--surface)",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "surface-tint": "#0053db",
+                        "secondary": "#515f74",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-tertiary-fixed": "#360f00",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-surface": "var(--on-surface)",
+                        "error-container": "#ffdad6",
+                        "surface-container": "var(--surface-container)",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "var(--on-secondary-container)"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "base": "4px",
+                        "gutter": "24px",
+                        "lg": "24px",
+                        "margin-desktop": "32px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-sm": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --surface: #f7f9fb;
+            --background: #f7f9fb;
+            --surface-container-lowest: #ffffff;
+            --surface-container-low: #f2f4f6;
+            --surface-container: #eceef0;
+            --surface-container-high: #e6e8ea;
+            --surface-container-highest: #e0e3e5;
+            --on-surface: #191c1e;
+            --on-background: #191c1e;
+            --on-surface-variant: #434655;
+            --outline: #737686;
+            --outline-variant: #c3c6d7;
+            --secondary-container: #d5e3fc;
+            --on-secondary-container: #57657a;
+            --primary: #004ac6;
+        }
+
+        html.dark {
+            --surface: #0e1113;
+            --background: #0e1113;
+            --surface-container-lowest: #16191c;
+            --surface-container-low: #1d2125;
+            --surface-container: #23282f;
+            --surface-container-high: #2a3038;
+            --surface-container-highest: #323942;
+            --on-surface: #e1e3e6;
+            --on-background: #e1e3e6;
+            --on-surface-variant: #c1c7d0;
+            --outline: #8b919a;
+            --outline-variant: #414750;
+            --secondary-container: #212835;
+            --on-secondary-container: #c1d5f6;
+            --primary: #3d8bff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body,
+        aside,
+        header,
+        footer,
+        section,
+        table,
+        tr,
+        th,
+        td,
+        input,
+        textarea,
+        select,
+        .bg-surface-container-lowest,
+        .bg-surface-container-low,
+        .bg-surface-container {
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+        }
+
+        input,
+        textarea,
+        select {
+            background-color: var(--surface-container-lowest) !important;
+            color: var(--on-surface) !important;
+            border-color: var(--outline-variant) !important;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--outline) !important;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface overflow-hidden">
+
+    <aside
+        class="fixed left-0 top-0 h-screen w-[280px] z-50 bg-surface-container-low border-r border-outline-variant flex flex-col py-lg">
+        <div class="px-lg mb-xl">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container">
+                    <span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+                </div>
+                <div>
+                    <h1 class="text-headline-md font-headline-md font-bold text-on-surface">Support CRM</h1>
+                    <p class="text-label-sm font-label-sm text-outline">Enterprise Support</p>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 px-sm space-y-1">
+            <a id="sidebar-dashboard-btn"
+                class="border-l-4 border-primary bg-secondary-container text-on-secondary-container font-bold flex items-center gap-3 px-4 py-3 transition-all duration-200 cursor-pointer">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span class="text-label-md font-label-md">Dashboard</span>
+            </a>
+            <a id="sidebar-tickets-btn"
+                class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200 cursor-pointer">
+                <span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+                <span class="text-label-md font-label-md">Tickets</span>
+            </a>
+            <a id="sidebar-kb-btn"
+                class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200 cursor-pointer">
+                <span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                <span class="text-label-md font-label-md">Knowledge Base</span>
+            </a>
+            <a
+                class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200 cursor-pointer">
+                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                <span class="text-label-md font-label-md">Settings</span>
+            </a>
+        </nav>
+        <div class="px-sm mt-auto pt-lg border-t border-outline-variant/30 space-y-1">
+            <button id="sidebar-create-ticket-btn"
+                class="w-full bg-primary-container text-on-primary-container py-3 rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 mb-lg hover:opacity-90 transition-opacity hidden">
+                <span class="material-symbols-outlined">add</span> Create Ticket
+            </button>
+            <a
+                class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200 cursor-pointer">
+                <span class="material-symbols-outlined" data-icon="help">help</span>
+                <span class="text-label-md font-label-md">Support</span>
+            </a>
+            <a
+                class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200 cursor-pointer">
+                <span class="material-symbols-outlined" data-icon="logout">logout</span>
+                <span class="text-label-md font-label-md">Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <header
+        class="fixed top-0 right-0 z-40 bg-surface-container-lowest/90 backdrop-blur-md h-16 border-b border-outline-variant shadow-sm flex items-center justify-between px-margin-desktop w-[calc(100%-280px)]">
+        <div class="flex items-center gap-4">
+            <nav aria-label="Breadcrumb" class="flex text-label-sm text-outline">
+                <ol class="flex items-center space-x-2" id="breadcrumb-list">
+                    <li><span class="hover:text-primary cursor-pointer" onclick="showView('dashboard')">Admin</span>
+                    </li>
+                    <li><span class="material-symbols-outlined text-[14px]"
+                            data-icon="chevron_right">chevron_right</span></li>
+                    <li class="text-on-surface font-medium" id="breadcrumb-current">Dashboard</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="flex items-center gap-gutter w-1/2" id="header-search-container">
+            <div class="relative w-full max-w-md">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline"
+                    data-icon="search">search</span>
+                <input id="global-search"
+                    class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-md focus:ring-2 focus:ring-primary/20"
+                    placeholder="Global search tickets..." type="text" />
+            </div>
+        </div>
+
+        <div class="flex items-center gap-md">
+            <button id="theme-toggle-btn"
+                class="w-10 h-10 rounded-full flex items-center justify-center text-outline hover:bg-surface-container transition-colors duration-200"
+                title="Toggle Dark/Light Mode">
+                <span id="theme-toggle-icon" class="material-symbols-outlined">dark_mode</span>
+            </button>
+
+            <div class="relative" id="notifications-container">
+                <button id="header-notifications-btn"
+                    class="w-10 h-10 rounded-full flex items-center justify-center text-outline hover:bg-surface-container transition-colors duration-200">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                </button>
+                <span id="notifications-badge"
+                    class="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 bg-error text-white text-[9px] font-bold rounded-full flex items-center justify-center hidden">0</span>
+
+                <div id="notifications-dropdown"
+                    class="absolute right-0 mt-2 w-80 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg z-50 py-2 hidden"
+                    style="top: 100%;">
+                    <div class="px-4 py-2 border-b border-outline-variant flex items-center justify-between">
+                        <span class="font-bold text-label-md">Notifications</span>
+                        <button id="mark-all-read-btn"
+                            class="text-[12px] text-primary hover:underline font-semibold">Mark all read</button>
+                    </div>
+                    <div id="notifications-list"
+                        class="max-h-72 overflow-y-auto custom-scrollbar divide-y divide-outline-variant/30"></div>
+                </div>
+            </div>
+
+            <button
+                class="w-10 h-10 rounded-full flex items-center justify-center text-outline hover:bg-surface-container transition-colors duration-200">
+                <span class="material-symbols-outlined" data-icon="help">help</span>
+            </button>
+            <div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
+            <div class="flex items-center gap-3">
+                <div class="text-right">
+                    <p class="text-label-md font-bold text-on-surface">Alex Rivera</p>
+                    <p class="text-[10px] text-outline uppercase tracking-wider">Senior Agent</p>
+                </div>
+                <img alt="Support Agent Avatar"
+                    class="w-10 h-10 rounded-full border border-outline-variant object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAho_oqeBxMhHl19MNWWDRQC24P5-lk6vIUAZXQ0W9yKDo-0cL9ofEPz0ApxsZzOs8LfxZTgFqpdAXHiXCwoYzug-M1efBBUqVbACO6IPQleAzOkqmYRcZFHU2tFT8K4s-eRscp8gF9PLRdyFtjAcaEPjlH7FMBsLgdinl6RjwAyHAbyU_p8HcufbK_48314SOpv3iNAjIYDVwcc4c3NEPW4IxmxAgZbSO5Vb7z9e1Ry8olgZOYko3PYF_Z6BWBy57hCIDzDYqTqx0" />
+            </div>
+        </div>
+    </header>
+
+    <main class="ml-[280px] pt-16 h-screen flex flex-col overflow-hidden">
+
+        <div id="dashboard-view" class="flex-1 overflow-y-auto custom-scrollbar p-margin-desktop bg-surface">
+            <div class="mb-lg">
+                <h2 class="text-display-sm font-display-sm text-on-surface" id="view-page-title">Ticket Command Center
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-12 gap-gutter">
+                <section id="dashboard-left-col" class="col-span-12 lg:col-span-4 space-y-gutter">
+                    <div class="bg-surface-container-lowest p-xl rounded-xl border border-outline-variant shadow-sm">
+                        <div class="flex items-center gap-2 mb-lg">
+                            <span class="material-symbols-outlined text-primary" data-icon="add_circle"
+                                data-weight="fill" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+                            <h3 class="text-headline-md font-headline-md">New Ticket</h3>
+                        </div>
+                        <form class="space-y-md" id="ticketForm">
+                            <div class="space-y-2">
+                                <label class="text-label-md font-medium text-on-surface-variant block">Customer
+                                    Name</label>
+                                <input id="customerName" required
+                                    class="w-full px-4 py-2.5 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all text-body-md outline-none"
+                                    placeholder="e.g. Sarah Jenkins" type="text" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-label-md font-medium text-on-surface-variant block">Customer
+                                    Email</label>
+                                <input id="customerEmail" required
+                                    class="w-full px-4 py-2.5 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all text-body-md outline-none"
+                                    placeholder="sarah.j@company.com" type="email" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-label-md font-medium text-on-surface-variant block">Subject</label>
+                                <input id="ticketSubject" required
+                                    class="w-full px-4 py-2.5 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all text-body-md outline-none"
+                                    placeholder="Summary of the issue" type="text" />
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-label-md font-medium text-on-surface-variant block">Description</label>
+                                <textarea id="ticketDescription" required
+                                    class="w-full px-4 py-2.5 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all text-body-md outline-none resize-none"
+                                    placeholder="Detailed explanation..." rows="4"></textarea>
+                            </div>
+                            <button id="submitTicketBtn"
+                                class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md hover:bg-primary/90 active:scale-[0.98] transition-all shadow-md mt-2 flex items-center justify-center gap-2"
+                                type="submit">
+                                <span class="material-symbols-outlined text-[20px]" data-icon="send">send</span> Submit
+                                Ticket
+                            </button>
+                        </form>
+                    </div>
+                    <div
+                        class="bg-primary-container p-lg rounded-xl text-on-primary-container flex items-center justify-between shadow-sm relative overflow-hidden group">
+                        <div class="relative z-10">
+                            <p class="text-label-sm uppercase tracking-widest opacity-80 mb-1">Average Response</p>
+                            <p class="text-display-sm font-display-sm">14m 32s</p>
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-[64px] opacity-10 absolute -right-2 -bottom-2 group-hover:scale-110 transition-transform duration-500"
+                            data-icon="bolt">bolt</span>
+                    </div>
+                </section>
+
+                <section id="dashboard-right-col" class="col-span-12 lg:col-span-8 flex flex-col">
+                    <div
+                        class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col min-h-[580px]">
+                        <div
+                            class="p-lg border-b border-outline-variant flex flex-col sm:flex-row items-center justify-between gap-md bg-surface-container-lowest">
+                            <div class="relative flex-1 w-full">
+                                <span
+                                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline"
+                                    data-icon="filter_list">filter_list</span>
+                                <input id="table-search"
+                                    class="w-full border-outline-variant border rounded-lg pl-10 pr-4 py-2 text-body-md focus:ring-2 focus:ring-primary/10 transition-all"
+                                    placeholder="Filter tickets by subject or name..." type="text" />
+                            </div>
+                            <div class="flex items-center gap-sm w-full sm:w-auto">
+                                <select id="status-filter"
+                                    class="bg-surface-container-low border-outline-variant border rounded-lg px-4 py-2 text-label-md focus:ring-2 focus:ring-primary/10 outline-none cursor-pointer">
+                                    <option value="All Statuses">All Statuses</option>
+                                    <option value="Open">Open</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Resolved">Resolved</option>
+                                    <option value="Closed">Closed</option>
+                                </select>
+                                <button id="refresh-btn"
+                                    class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-colors"
+                                    title="Refresh Table">
+                                    <span class="material-symbols-outlined text-outline"
+                                        data-icon="refresh">refresh</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto flex-1">
+                            <table class="w-full border-collapse">
+                                <thead class="bg-surface-container-low border-b border-outline-variant">
+                                    <tr>
+                                        <th
+                                            class="text-left px-lg py-4 text-label-sm font-semibold text-outline uppercase tracking-wider">
+                                            Ticket ID</th>
+                                        <th
+                                            class="text-left px-lg py-4 text-label-sm font-semibold text-outline uppercase tracking-wider">
+                                            Customer</th>
+                                        <th
+                                            class="text-left px-lg py-4 text-label-sm font-semibold text-outline uppercase tracking-wider">
+                                            Subject</th>
+                                        <th
+                                            class="text-left px-lg py-4 text-label-sm font-semibold text-outline uppercase tracking-wider">
+                                            Status</th>
+                                        <th
+                                            class="text-left px-lg py-4 text-label-sm font-semibold text-outline uppercase tracking-wider text-right">
+                                            Created</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tickets-table-body" class="divide-y divide-outline-variant"></tbody>
+                            </table>
+                        </div>
+
+                        <div
+                            class="p-lg border-t border-outline-variant flex items-center justify-between text-label-sm text-outline mt-auto">
+                            <p id="pagination-info">Showing 0 to 0 of 0 tickets</p>
+                            <div class="flex items-center gap-2" id="pagination-controls"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div id="kb-view" class="flex-1 overflow-y-auto custom-scrollbar p-margin-desktop bg-surface hidden pb-24">
+            <div class="mb-lg">
+                <h2 class="text-display-sm font-display-sm text-on-surface">Knowledge Base</h2>
+            </div>
+
+            <div id="kb-grid-section" class="space-y-lg">
+                <div
+                    class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm flex flex-col md:flex-row items-center justify-between gap-md">
+                    <div class="space-y-1">
+                        <h3 class="text-headline-md font-headline-md">Help Documentation</h3>
+                        <p class="text-body-md text-outline">Search standard guides and troubleshooting runbooks for CRM
+                            operators.</p>
+                    </div>
+                    <div class="relative w-80">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline"
+                            data-icon="search">search</span>
+                        <input id="kb-search"
+                            class="w-full border-outline-variant border rounded-lg pl-10 pr-4 py-2 text-body-md focus:ring-2 focus:ring-primary/10 transition-all"
+                            placeholder="Search documentation..." type="text" />
+                    </div>
+                </div>
+
+                <div id="kb-articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter"></div>
+            </div>
+
+            <div id="kb-reader-section"
+                class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-xl max-w-4xl mx-auto space-y-lg hidden">
+                <button id="kb-back-btn"
+                    class="text-primary font-bold flex items-center gap-1 hover:underline text-label-md">
+                    <span class="material-symbols-outlined">arrow_back</span> Back to Articles
+                </button>
+
+                <div class="border-b border-outline-variant pb-md flex items-center gap-lg">
+                    <div id="kb-reader-icon-container"
+                        class="w-16 h-16 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center">
+                        <span id="kb-reader-icon" class="material-symbols-outlined text-[36px]">menu_book</span>
+                    </div>
+                    <div>
+                        <span id="kb-reader-category"
+                            class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase tracking-wider">Category</span>
+                        <h3 id="kb-reader-title"
+                            class="text-headline-lg font-headline-lg font-bold text-on-surface mt-2">Article Title</h3>
+                    </div>
+                </div>
+
+                <div id="kb-reader-content"
+                    class="prose max-w-none text-body-lg text-on-surface leading-relaxed space-y-4"></div>
+            </div>
+        </div>
+
+        <div id="detail-view" class="flex-1 overflow-y-auto custom-scrollbar p-margin-desktop bg-surface hidden pb-28">
+            <div class="max-w-[1600px] mx-auto flex flex-col gap-gutter">
+                <div
+                    class="flex items-center justify-between bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant">
+                    <div class="flex flex-col gap-1">
+                        <div class="flex items-center gap-3">
+                            <span class="text-display-sm font-display-sm" id="detail-ticket-title">TKT-000: Loading
+                                Ticket...</span>
+                            <span
+                                class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-label-sm font-label-sm"
+                                id="detail-priority-tag">High Priority</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-on-surface-variant">
+                            <span class="flex items-center gap-1 text-label-md font-label-md">
+                                <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                <span id="detail-opened-time">Opened ...</span>
+                            </span>
+                            <span class="flex items-center gap-1 text-label-md font-label-md">
+                                <span class="material-symbols-outlined text-[18px]">person</span> Assigned to me
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button
+                            class="px-md py-2 border border-outline-variant text-secondary rounded-lg font-label-md hover:bg-surface-container transition-colors flex items-center gap-2">
+                            <span class="material-symbols-outlined">print</span> Print
+                        </button>
+                        <button
+                            class="px-md py-2 border border-outline-variant text-secondary rounded-lg font-label-md hover:bg-surface-container transition-colors flex items-center gap-2">
+                            <span class="material-symbols-outlined">share</span> Share
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-12 gap-gutter">
+                    <div class="col-span-12 lg:col-span-8 flex flex-col gap-gutter">
+                        <div
+                            class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+                            <div class="p-lg border-b border-outline-variant bg-surface-container-low">
+                                <h3 class="text-headline-md font-headline-md text-on-surface">Original Description</h3>
+                            </div>
+                            <div class="p-lg space-y-6">
+                                <div class="prose max-w-none">
+                                    <p class="text-body-lg font-body-lg text-on-surface leading-relaxed whitespace-pre-line"
+                                        id="detail-description">Loading description...</p>
+                                    <p class="text-body-lg font-body-lg text-on-surface mt-4">
+                                        Best regards,<br />
+                                        <span class="font-semibold" id="detail-signature">Customer Name</span>
+                                    </p>
+                                </div>
+                                <div class="pt-6 border-t border-outline-variant">
+                                    <h4 class="text-label-md font-label-md text-on-surface-variant mb-3">Attachments (1)
+                                    </h4>
+                                    <div
+                                        class="flex items-center gap-3 p-3 border border-outline-variant rounded-lg w-fit hover:bg-surface-container-low cursor-pointer transition-colors">
+                                        <span class="material-symbols-outlined text-primary">description</span>
+                                        <div class="flex flex-col">
+                                            <span class="text-label-md font-label-md"
+                                                id="detail-attachment-name">invoice_attachment.pdf</span>
+                                            <span class="text-[10px] text-on-surface-variant">1.2 MB</span>
+                                        </div>
+                                        <span
+                                            class="material-symbols-outlined ml-4 text-on-surface-variant hover:text-on-surface">download</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant flex flex-col">
+                            <div class="p-lg border-b border-outline-variant flex justify-between items-center">
+                                <h3 class="text-headline-md font-headline-md text-on-surface">Activity & Notes</h3>
+                                <div class="flex p-1 bg-surface-container-low rounded-lg gap-1">
+                                    <button
+                                        class="px-4 py-1.5 bg-surface-container-lowest text-primary font-bold rounded-md shadow-sm text-label-md">Internal
+                                        Notes</button>
+                                    <button class="px-4 py-1.5 text-secondary text-label-md">Customer Reply</button>
+                                </div>
+                            </div>
+                            <div class="p-lg space-y-6">
+                                <div id="notes-list"
+                                    class="space-y-6 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar"></div>
+                                <div class="flex gap-4 pt-4 border-t border-outline-variant">
+                                    <img alt="Support Agent Avatar"
+                                        class="w-10 h-10 rounded-full border border-outline-variant object-cover"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxOLxfiMzupeyrPW8k9mL9TE1iHdguTZXCz3293Py7_n5Vupn35kSnMWWSmVRZZ9ks52J3y1JcvvfDjjgatFizjE6gZs_DYdUlKTBf2bkOekT8tbGIBJvc5X-lDphp4NGVkslptfO_wdq6p7Bab6eWAn9egqhzuttFjGKSwYWsZ3mAs2atP2bMdnLLfPxgsNW_5rDhu6n1WXCQzDOmLmpFCRQ6pz5oGQPU5XrJiqaCvxD2Brg97EBOaJcijqA2Xafv_2ImypdXyfk" />
+                                    <div class="flex-1">
+                                        <label
+                                            class="block text-label-md font-label-md text-on-surface-variant mb-2">Add
+                                            an internal note...</label>
+                                        <textarea id="noteText"
+                                            class="w-full min-h-[100px] p-md border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-body-md font-body-md resize-none"
+                                            placeholder="Type your observations here. This is only visible to the team."></textarea>
+                                        <div class="mt-2 flex justify-end gap-2">
+                                            <button id="discardNoteBtn"
+                                                class="px-md py-1.5 text-secondary hover:bg-surface-container rounded-lg text-label-md">Discard</button>
+                                            <button id="postNoteBtn"
+                                                class="px-md py-1.5 bg-primary text-on-primary rounded-lg text-label-md font-bold flex items-center gap-1.5 hover:bg-primary/95 active:scale-[0.98] transition-all">Post
+                                                Note</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+                        <div
+                            class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-lg">
+                            <div class="flex flex-col items-center text-center mb-6">
+                                <div id="detail-customer-avatar"
+                                    class="w-20 h-20 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-2xl font-bold mb-4">
+                                    JD</div>
+                                <h4 class="text-headline-md font-headline-md text-on-surface" id="detail-customer-name">
+                                    Sarah Jenkins</h4>
+                                <p class="text-label-md font-label-md text-primary" id="detail-customer-email">
+                                    sarah.j@acme-corp.com</p>
+                            </div>
+                            <div class="space-y-4 pt-4 border-t border-outline-variant">
+                                <div class="flex justify-between">
+                                    <span class="text-label-md font-label-md text-on-surface-variant">Company</span>
+                                    <span class="text-label-md font-label-md text-on-surface"
+                                        id="detail-customer-company">Acme Corporation</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-label-md font-label-md text-on-surface-variant">Plan</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded text-[12px] font-bold">PRO</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-label-md font-label-md text-on-surface-variant">Tenure</span>
+                                    <span class="text-label-md font-label-md text-on-surface">2.4 Years</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-label-md font-label-md text-on-surface-variant">Last Ticket</span>
+                                    <span class="text-label-md font-label-md text-on-surface">3 months ago</span>
+                                </div>
+                            </div>
+                            <button
+                                class="w-full mt-6 py-2 border border-outline-variant text-on-surface hover:bg-surface-container rounded-lg text-label-md font-bold transition-all">View
+                                Full History</button>
+                        </div>
+
+                        <div
+                            class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-lg space-y-6">
+                            <h4 class="text-headline-md font-headline-md text-on-surface">Ticket Actions</h4>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Ticket
+                                    Status</label>
+                                <div class="relative group">
+                                    <select id="detail-status-select"
+                                        class="w-full p-3 border border-outline-variant rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 appearance-none bg-white text-body-md font-body-md cursor-pointer">
+                                        <option value="Open">Open</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Resolved">Resolved</option>
+                                        <option value="Closed">Closed</option>
+                                    </select>
+                                    <span
+                                        class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Assignee</label>
+                                <div class="flex items-center gap-3 p-3 border border-outline-variant rounded-xl">
+                                    <img alt="Me" class="w-6 h-6 rounded-full object-cover"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx3810tMXYPwK4gvMTZ9CbtF1pFNEKd6pP4bAX9UWSFcK0DsfQWcj9zcrnGjJI_0Ub8MTKd2QcQi-FdWrsG1a3i_bNEVkNpaIKge0OSIaYZ2U6sdZ6-n1_YsM9NdOa_0e8b2O5_pIGlq_M42QYjX01qgd523kMMHVSJx_X1wTysJTC5ErGB-Lhx1Mouyg_8pQiT5clUOb6smHIUmRrufpeMHPj-EmJE1pLUZGybfrPDDG_fJBLYEsCwPOhnJ2pP1rs7ai7ovHDcME" />
+                                    <span class="text-label-md font-label-md">Alex Rivera (You)</span>
+                                    <span
+                                        class="material-symbols-outlined ml-auto text-on-surface-variant cursor-pointer">edit</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Tags</label>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-[12px] flex items-center gap-1">
+                                        Billing <span
+                                            class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+                                    </span>
+                                    <span
+                                        class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-[12px] flex items-center gap-1">
+                                        Refund <span
+                                            class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+                                    </span>
+                                    <button
+                                        class="px-3 py-1 border border-dashed border-outline-variant text-on-surface-variant rounded-full text-[12px] flex items-center gap-1 hover:border-primary hover:text-primary">
+                                        <span class="material-symbols-outlined text-[14px]">add</span> Add Tag
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="detail-footer"
+        class="fixed bottom-0 right-0 left-0 h-20 bg-surface-container-lowest/90 backdrop-blur-md border-t border-outline-variant z-50 ml-[280px] px-margin-desktop flex items-center justify-between hidden">
+        <div class="flex items-center gap-4 text-on-surface-variant text-label-md font-label-md">
+            <span class="flex items-center gap-1"><span
+                    class="material-symbols-outlined text-green-600">check_circle</span> Connections active</span>
+            <span class="text-outline-variant">|</span>
+            <span id="detail-save-status">All changes saved</span>
+        </div>
+        <div class="flex gap-4">
+            <button id="cancelDetailBtn"
+                class="px-xl py-3 text-secondary font-bold hover:bg-surface-container rounded-xl text-label-md transition-colors">Cancel</button>
+            <button id="saveChangesBtn"
+                class="px-xl py-3 bg-primary text-on-primary font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all text-label-md flex items-center gap-2">
+                <span class="material-symbols-outlined">save</span> Save Changes
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = "";
+
+        let ticketsList = [];
+        let filteredTickets = [];
+        let currentTicketId = null;
+        let currentView = "dashboard";
+        let notifications = [];
+
+        let currentPage = 1;
+        const itemsPerPage = 5;
+
+        const kbArticles = [
+            {
+                id: "password-reset",
+                title: "Password Reset Guide",
+                category: "Account Security",
+                icon: "lock_reset",
+                summary: "Instructions on resetting account passwords for users and resolving email delivery delays.",
+                content: `
+                    <p class="font-semibold text-on-surface">To reset a user's password or assist them when locked out, follow these standard steps:</p>
+                    <ol class="list-decimal pl-6 space-y-2 mt-2">
+                        <li>Instruct the customer to navigate to the primary login portal and select <strong>"Forgot Password"</strong>.</li>
+                        <li>Ask them to enter their exact registered email address. The automated system generates a secure link within 2-3 minutes.</li>
+                        <li>If they report the email hasn't arrived:
+                            <ul class="list-disc pl-6 space-y-1 mt-1">
+                               <li>Have them inspect their Spam/Junk folders.</li>
+                               <li>Verify their workspace email server has whitelisted our outbound domain: <code>noreply@company.com</code>.</li>
+                            </ul>
+                        </li>
+                        <li>The reset link remains active for exactly <strong>2 hours</strong>. After expiration, a new request must be raised.</li>
+                        <li>New passwords require a minimum of 8 characters, containing at least one numeral and one special character (e.g., @, #, $).</li>
+                    </ol>
+                    <div class="p-lg bg-surface-container-low border border-outline-variant rounded-xl mt-6">
+                        <p class="text-label-md font-bold text-primary flex items-center gap-2">
+                            <span class="material-symbols-outlined">info</span> Agent Note
+                        </p>
+                        <p class="text-body-md text-outline mt-1">If the customer is completely locked out due to MFA token desynchronization, escalate the ticket to Security Operations to clear the MFA flags in the database.</p>
+                    </div>
+                `
+            },
+            {
+                id: "refund-policy",
+                title: "Refund Policy",
+                category: "Billing Operations",
+                icon: "payments",
+                summary: "Refund eligibility windows, processing times, and policies regarding unused subscription periods.",
+                content: `
+                    <p class="font-semibold text-on-surface">Standard refund terms for SaaS subscription tiers are governed as follows:</p>
+                    <ul class="list-disc pl-6 space-y-2 mt-2">
+                        <li><strong>Monthly Subscriptions:</strong> Customers are eligible for a full refund within <strong>7 days</strong> of their billing renewal date, provided there has been no API activity or seat utilization during the active billing period.</li>
+                        <li><strong>Annual Subscriptions:</strong> Customers are eligible for a refund within <strong>30 days</strong> of renewal. The refund is calculated pro-rata, deducting the standard monthly rate for the active month(s) and returning the remaining balance.</li>
+                        <li><strong>Refund Processing:</strong> Refunds are returned only to the original payment instrument (Visa, Mastercard, ACH, etc.). Processing times range from <strong>5 to 10 business days</strong> depending on Stripe/financial institutions.</li>
+                    </ul>
+                    <p class="mt-4">Agents should verify subscription logs via the Billing tab before submitting refund invoices to the Finance lead for approval.</p>
+                `
+            },
+            {
+                id: "troubleshoot-login",
+                title: "Troubleshooting Login Issues",
+                category: "Technical Support",
+                icon: "login",
+                summary: "Common errors like 401 Unauthorized, browser cookie conflicts, and multi-factor authentication issues.",
+                content: `
+                    <p class="font-semibold text-on-surface">When customers submit login issues, run through the following diagnostics triage:</p>
+                    <ol class="list-decimal pl-6 space-y-2 mt-2">
+                        <li><strong>Clear Cache/Cookies:</strong> Over 70% of 401 Authentication errors are caused by expired session tokens stored in browser cookies. Ask the user to attempt a login using Chrome Incognito or Firefox Private browsing modes.</li>
+                        <li><strong>Check trailing spaces:</strong> Copy-pasting email credentials sometimes appends a space at the end, causing credentials validation to fail.</li>
+                        <li><strong>MFA clock drift:</strong> If the 6-digit authenticator code is rejected, it's typically a desync issue. The system time on the customer's phone must match Internet time. Advise them to use the "Sync Time" feature in Google Authenticator or Microsoft Authenticator settings.</li>
+                        <li><strong>Profile Lockouts:</strong> Users are automatically locked out for 15 minutes after 5 consecutive failed login attempts. CRM agents can override this and unlock users in settings if identity verification is satisfied.</li>
+                    </ol>
+                `
+            }
+        ];
+
+        const dashboardView = document.getElementById("dashboard-view");
+        const kbView = document.getElementById("kb-view");
+        const detailView = document.getElementById("detail-view");
+        const detailFooter = document.getElementById("detail-footer");
+
+        const dashboardLeftCol = document.getElementById("dashboard-left-col");
+        const dashboardRightCol = document.getElementById("dashboard-right-col");
+        const viewPageTitle = document.getElementById("view-page-title");
+
+        const sidebarDashboardBtn = document.getElementById("sidebar-dashboard-btn");
+        const sidebarTicketsBtn = document.getElementById("sidebar-tickets-btn");
+        const sidebarKbBtn = document.getElementById("sidebar-kb-btn");
+        const sidebarCreateTicketBtn = document.getElementById("sidebar-create-ticket-btn");
+
+        const breadcrumbCurrent = document.getElementById("breadcrumb-current");
+        const breadcrumbList = document.getElementById("breadcrumb-list");
+        const headerSearchContainer = document.getElementById("header-search-container");
+
+        const ticketsTableBody = document.getElementById("tickets-table-body");
+        const statusFilter = document.getElementById("status-filter");
+        const tableSearch = document.getElementById("table-search");
+        const globalSearch = document.getElementById("global-search");
+        const refreshBtn = document.getElementById("refresh-btn");
+
+        const ticketForm = document.getElementById("ticketForm");
+        const submitTicketBtn = document.getElementById("submitTicketBtn");
+
+        window.addEventListener("DOMContentLoaded", () => {
+            loadTickets();
+            setupEventListeners();
+            initNotifications();
+            initTheme();
+        });
+
+        function setupEventListeners() {
+            sidebarDashboardBtn.addEventListener("click", () => showView("dashboard"));
+            sidebarTicketsBtn.addEventListener("click", () => showView("tickets"));
+            sidebarKbBtn.addEventListener("click", () => showView("kb"));
+
+            sidebarCreateTicketBtn.addEventListener("click", () => {
+                showView("dashboard");
+                document.getElementById("customerName").focus();
+            });
+
+            statusFilter.addEventListener("change", () => {
+                currentPage = 1;
+                filterAndRenderTickets();
+            });
+            tableSearch.addEventListener("input", () => {
+                currentPage = 1;
+                filterAndRenderTickets();
+            });
+            globalSearch.addEventListener("input", () => {
+                currentPage = 1;
+                tableSearch.value = globalSearch.value;
+                filterAndRenderTickets();
+            });
+            refreshBtn.addEventListener("click", () => {
+                loadTickets();
+            });
+
+            document.getElementById("kb-search").addEventListener("input", () => {
+                renderKBArticles();
+            });
+
+            document.getElementById("kb-back-btn").addEventListener("click", () => {
+                showKBList();
+            });
+
+            ticketForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const customer_name = document.getElementById("customerName").value;
+                const customer_email = document.getElementById("customerEmail").value;
+                const subject = document.getElementById("ticketSubject").value;
+                const description = document.getElementById("ticketDescription").value;
+
+                const originalBtnText = submitTicketBtn.innerHTML;
+                submitTicketBtn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="progress_activity">progress_activity</span> Processing...';
+                submitTicketBtn.disabled = true;
+
+                try {
+                    const response = await fetch(`${API_BASE}/api/tickets`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ customer_name, customer_email, subject, description })
+                    });
+
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                    const newTicket = await response.json();
+
+                    submitTicketBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]" data-icon="check_circle">check_circle</span> Success!';
+                    submitTicketBtn.classList.remove("bg-primary");
+                    submitTicketBtn.classList.add("bg-green-600");
+
+                    addNotification("New Ticket Created", `Ticket #${newTicket.ticket_id} has been submitted by ${newTicket.customer_name}.`, newTicket.ticket_id);
+
+                    setTimeout(() => {
+                        submitTicketBtn.innerHTML = originalBtnText;
+                        submitTicketBtn.classList.add("bg-primary");
+                        submitTicketBtn.classList.remove("bg-green-600");
+                        submitTicketBtn.disabled = false;
+                        ticketForm.reset();
+                        loadTickets();
+                    }, 2000);
+
+                } catch (error) {
+                    console.error("Error creating ticket:", error);
+                    alert("Failed to submit ticket. Please check backend connection.");
+                    submitTicketBtn.innerHTML = originalBtnText;
+                    submitTicketBtn.disabled = false;
+                }
+            });
+
+            const postNoteBtn = document.getElementById("postNoteBtn");
+            const noteTextarea = document.getElementById("noteText");
+            const discardNoteBtn = document.getElementById("discardNoteBtn");
+
+            postNoteBtn.addEventListener("click", async () => {
+                const noteVal = noteTextarea.value.trim();
+                if (!noteVal) return;
+
+                const originalText = postNoteBtn.innerHTML;
+                postNoteBtn.innerHTML = "Posting...";
+                postNoteBtn.disabled = true;
+
+                const notePayload = { note_text: `Alex Rivera (You): ${noteVal}` };
+
+                try {
+                    const response = await fetch(`${API_BASE}/api/tickets/${currentTicketId}/notes`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(notePayload)
+                    });
+
+                    if (!response.ok) throw new Error("Failed to post note");
+
+                    noteTextarea.value = "";
+                    addNotification("New Note Added", `A new reply was posted on Ticket #${currentTicketId}.`, currentTicketId);
+                    await openTicketDetail(currentTicketId);
+                } catch (err) {
+                    console.error(err);
+                    alert("Error adding note.");
+                } finally {
+                    postNoteBtn.innerHTML = originalText;
+                    postNoteBtn.disabled = false;
+                }
+            });
+
+            discardNoteBtn.addEventListener("click", () => {
+                noteTextarea.value = "";
+            });
+
+            const saveChangesBtn = document.getElementById("saveChangesBtn");
+            const statusSelect = document.getElementById("detail-status-select");
+
+            saveChangesBtn.addEventListener("click", async () => {
+                const newStatus = statusSelect.value;
+                const originalText = saveChangesBtn.innerHTML;
+                saveChangesBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span> Saving...`;
+                saveChangesBtn.classList.add("opacity-80");
+
+                try {
+                    const response = await fetch(`${API_BASE}/api/tickets/${currentTicketId}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ status: newStatus })
+                    });
+
+                    if (!response.ok) throw new Error("Failed to update status");
+
+                    saveChangesBtn.innerHTML = `<span class="material-symbols-outlined">check</span> Saved!`;
+                    saveChangesBtn.classList.remove("bg-primary");
+                    saveChangesBtn.classList.add("bg-green-600");
+
+                    document.getElementById("detail-save-status").innerText = "All changes saved";
+                    addNotification("Ticket Status Updated", `Ticket #${currentTicketId} status has been updated to "${newStatus}".`, currentTicketId);
+
+                    // FIXED: Clean state change to route right to dashboard and reload tickets instantly
+                    setTimeout(async () => {
+                        saveChangesBtn.innerHTML = originalText;
+                        saveChangesBtn.classList.remove("bg-green-600", "opacity-80");
+                        saveChangesBtn.classList.add("bg-primary");
+
+                        showView("dashboard");
+                        await loadTickets();
+                    }, 1000);
+
+                } catch (err) {
+                    console.error(err);
+                    alert("Error updating status.");
+                    saveChangesBtn.innerHTML = originalText;
+                    saveChangesBtn.classList.remove("opacity-80");
+                }
+            });
+
+            document.getElementById("cancelDetailBtn").addEventListener("click", () => {
+                showView("dashboard");
+            });
+
+            statusSelect.addEventListener("change", () => {
+                document.getElementById("detail-save-status").innerText = "Unsaved changes *";
+            });
+        }
+
+        function showView(view) {
+            currentView = view;
+            const sidebarInactive = "text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200 cursor-pointer";
+            const sidebarActive = "border-l-4 border-primary bg-secondary-container text-on-secondary-container font-bold flex items-center gap-3 px-4 py-3 transition-all duration-200 cursor-pointer";
+
+            if (view === "dashboard") {
+                dashboardView.classList.remove("hidden");
+                kbView.classList.add("hidden");
+                detailView.classList.add("hidden");
+                detailFooter.classList.add("hidden");
+                dashboardLeftCol.classList.remove("hidden");
+                dashboardRightCol.className = "col-span-12 lg:col-span-8 flex flex-col";
+                viewPageTitle.innerText = "Ticket Command Center";
+                headerSearchContainer.classList.remove("hidden");
+                sidebarDashboardBtn.className = sidebarActive;
+                sidebarTicketsBtn.className = sidebarInactive;
+                sidebarKbBtn.className = sidebarInactive;
+                sidebarCreateTicketBtn.classList.add("hidden");
+                breadcrumbList.innerHTML = `
+                    <li><span class="hover:text-primary cursor-pointer" onclick="showView('dashboard')">Admin</span></li>
+                    <li><span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span></li>
+                    <li class="text-on-surface font-medium">Dashboard</li>
+                `;
+            } else if (view === "tickets") {
+                dashboardView.classList.remove("hidden");
+                kbView.classList.add("hidden");
+                detailView.classList.add("hidden");
+                detailFooter.classList.add("hidden");
+                dashboardLeftCol.classList.add("hidden");
+                dashboardRightCol.className = "col-span-12 lg:col-span-12 flex flex-col";
+                viewPageTitle.innerText = "All Support Tickets";
+                headerSearchContainer.classList.remove("hidden");
+                sidebarDashboardBtn.className = sidebarInactive;
+                sidebarTicketsBtn.className = sidebarActive;
+                sidebarKbBtn.className = sidebarInactive;
+                sidebarCreateTicketBtn.classList.remove("hidden");
+                breadcrumbList.innerHTML = `
+                    <li><span class="hover:text-primary cursor-pointer" onclick="showView('dashboard')">Admin</span></li>
+                    <li><span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span></li>
+                    <li class="text-on-surface font-medium">Tickets</li>
+                `;
+            } else if (view === "kb") {
+                dashboardView.classList.add("hidden");
+                kbView.classList.remove("hidden");
+                detailView.classList.add("hidden");
+                detailFooter.classList.add("hidden");
+                headerSearchContainer.classList.add("hidden");
+                sidebarDashboardBtn.className = sidebarInactive;
+                sidebarTicketsBtn.className = sidebarInactive;
+                sidebarKbBtn.className = sidebarActive;
+                sidebarCreateTicketBtn.classList.add("hidden");
+                breadcrumbList.innerHTML = `
+                    <li><span class="hover:text-primary cursor-pointer" onclick="showView('dashboard')">Admin</span></li>
+                    <li><span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span></li>
+                    <li class="text-on-surface font-medium">Knowledge Base</li>
+                `;
+                showKBList();
+                renderKBArticles();
+            } else if (view === "details") {
+                dashboardView.classList.add("hidden");
+                kbView.classList.add("hidden");
+                detailView.classList.remove("hidden");
+                detailFooter.classList.remove("hidden");
+                headerSearchContainer.classList.add("hidden");
+                sidebarDashboardBtn.className = sidebarInactive;
+                sidebarTicketsBtn.className = sidebarActive;
+                sidebarKbBtn.className = sidebarInactive;
+                sidebarCreateTicketBtn.classList.remove("hidden");
+                breadcrumbList.innerHTML = `
+                    <li><span class="hover:text-primary cursor-pointer" onclick="showView('dashboard')">Tickets</span></li>
+                    <li><span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span></li>
+                    <li class="text-primary font-bold">${currentTicketId}</li>
+                `;
+            }
+        }
+
+        async function loadTickets() {
+            try {
+                const response = await fetch(`${API_BASE}/api/tickets`);
+                if (!response.ok) throw new Error("Could not fetch tickets");
+                ticketsList = await response.json();
+                filterAndRenderTickets();
+            } catch (err) {
+                console.error("Error loading tickets:", err);
+                ticketsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="px-lg py-8 text-center text-error font-medium">
+                            Failed to load tickets. Is the FastAPI server running on localhost:8000?
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        function filterAndRenderTickets() {
+            const searchVal = tableSearch.value.trim().toLowerCase();
+            const filterVal = statusFilter.value;
+
+            filteredTickets = ticketsList.filter(t => {
+                const matchesStatus = (filterVal === "All Statuses" || t.status.toLowerCase() === filterVal.toLowerCase());
+                const matchesSearch = !searchVal ||
+                    t.ticket_id.toLowerCase().includes(searchVal) ||
+                    t.customer_name.toLowerCase().includes(searchVal) ||
+                    t.customer_email.toLowerCase().includes(searchVal) ||
+                    t.subject.toLowerCase().includes(searchVal);
+                return matchesStatus && matchesSearch;
+            });
+
+            const totalItems = filteredTickets.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+            const paginatedTickets = filteredTickets.slice(startIndex, endIndex);
+
+            ticketsTableBody.innerHTML = "";
+            if (paginatedTickets.length === 0) {
+                ticketsTableBody.innerHTML = `
+                    <tr><td colspan="5" class="px-lg py-8 text-center text-outline">No tickets found.</td></tr>
+                `;
+            } else {
+                paginatedTickets.forEach(ticket => {
+                    const tr = document.createElement("tr");
+                    tr.className = "hover:bg-surface-container-low transition-colors group cursor-pointer border-b border-outline-variant/50";
+                    tr.onclick = () => openTicketDetail(ticket.ticket_id);
+                    tr.innerHTML = `
+                        <td class="px-lg py-4 text-body-md font-medium text-primary">#${ticket.ticket_id}</td>
+                        <td class="px-lg py-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full ${getAvatarBgClass(ticket.customer_name)} flex items-center justify-center text-[10px] font-bold text-white">${getInitials(ticket.customer_name)}</div>
+                                <span class="text-body-md text-on-surface">${ticket.customer_name}</span>
+                            </div>
+                        </td>
+                        <td class="px-lg py-4 text-body-md text-on-surface-variant max-w-[240px] truncate">${ticket.subject}</td>
+                        <td class="px-lg py-4">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm font-semibold ${getStatusBadgeClass(ticket.status)}">
+                                <span class="w-1.5 h-1.5 rounded-full ${getStatusDotClass(ticket.status)}"></span>
+                                ${ticket.status}
+                            </span>
+                        </td>
+                        <td class="px-lg py-4 text-label-md text-outline text-right">${formatTimeAgo(ticket.created_at)}</td>
+                    `;
+                    ticketsTableBody.appendChild(tr);
+                });
+            }
+
+            const displayStart = totalItems === 0 ? 0 : startIndex + 1;
+            document.getElementById("pagination-info").innerText = `Showing ${displayStart} to ${endIndex} of ${totalItems} tickets`;
+            renderPaginationControls(totalPages);
+        }
+
+        function renderPaginationControls(totalPages) {
+            const controlsContainer = document.getElementById("pagination-controls");
+            controlsContainer.innerHTML = "";
+
+            const prevBtn = document.createElement("button");
+            prevBtn.className = "w-8 h-8 flex items-center justify-center rounded border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-30";
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">chevron_left</span>`;
+            prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; filterAndRenderTickets(); } };
+            controlsContainer.appendChild(prevBtn);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement("button");
+                pageBtn.className = i === currentPage ? "w-8 h-8 flex items-center justify-center rounded border border-primary bg-primary text-on-primary font-bold" : "w-8 h-8 flex items-center justify-center rounded border border-outline-variant hover:bg-surface-container transition-colors";
+                pageBtn.innerText = i;
+                pageBtn.onclick = () => { currentPage = i; filterAndRenderTickets(); };
+                controlsContainer.appendChild(pageBtn);
+            }
+
+            const nextBtn = document.createElement("button");
+            nextBtn.className = "w-8 h-8 flex items-center justify-center rounded border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-30";
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">chevron_right</span>`;
+            nextBtn.onclick = () => { if (currentPage < totalPages) { currentPage++; filterAndRenderTickets(); } };
+            controlsContainer.appendChild(nextBtn);
+        }
+
+        async function openTicketDetail(ticketId) {
+            currentTicketId = ticketId;
+            showView("details");
+
+            document.getElementById("detail-ticket-title").innerText = `TKT-${ticketId}: Loading...`;
+            document.getElementById("detail-description").innerText = "Loading issue details from database...";
+
+            try {
+                const response = await fetch(`${API_BASE}/api/tickets/${ticketId}`);
+                if (!response.ok) throw new Error("Failed to fetch ticket data");
+                const ticket = await response.json();
+
+                document.getElementById("detail-ticket-title").innerText = `TKT-${ticket.ticket_id}: ${ticket.subject}`;
+                document.getElementById("detail-description").innerText = ticket.description || "No description provided.";
+                document.getElementById("detail-signature").innerText = ticket.customer_name;
+                document.getElementById("detail-customer-name").innerText = ticket.customer_name;
+                document.getElementById("detail-customer-email").innerText = ticket.customer_email;
+                document.getElementById("detail-opened-time").innerText = `Opened ${formatTimeAgo(ticket.created_at)}`;
+
+                const avatarDiv = document.getElementById("detail-customer-avatar");
+                avatarDiv.className = `w-20 h-20 rounded-full ${getAvatarBgClass(ticket.customer_name)} flex items-center justify-center text-2xl font-bold mb-4 text-white`;
+                avatarDiv.innerText = getInitials(ticket.customer_name);
+
+                const domain = ticket.customer_email.split("@")[1] || "";
+                let company = "Individual Account";
+                if (domain && !["gmail.com", "yahoo.com", "outlook.com", "hotmail.com"].includes(domain)) {
+                    const compName = domain.split(".")[0];
+                    company = compName.charAt(0).toUpperCase() + compName.slice(1) + " Inc.";
+                }
+                document.getElementById("detail-customer-company").innerText = company;
+
+                document.getElementById("detail-status-select").value = ticket.status || "Open";
+                document.getElementById("detail-save-status").innerText = "All changes saved";
+
+                renderTicketNotes(ticket.notes || []);
+            } catch (err) {
+                console.error(err);
+                document.getElementById("detail-description").innerText = "Failed to load database details for this ticket.";
+            }
+        }
+
+        function renderTicketNotes(notesArray) {
+            const notesList = document.getElementById("notes-list");
+            notesList.innerHTML = "";
+
+            if (notesArray.length === 0) {
+                notesList.innerHTML = `<p class="text-body-md text-outline italic py-4 text-center">No internal history recorded.</p>`;
+                return;
+            }
+
+            notesArray.forEach(note => {
+                const noteDiv = document.createElement("div");
+                noteDiv.className = "p-md bg-surface-container-low border border-outline-variant rounded-xl flex flex-col gap-1 text-left";
+                let author = "System Log";
+                let textContent = note.note_text;
+
+                if (note.note_text.includes(":")) {
+                    const splitPos = note.note_text.indexOf(":");
+                    author = note.note_text.substring(0, splitPos);
+                    textContent = note.note_text.substring(splitPos + 1).trim();
+                }
+
+                noteDiv.innerHTML = `
+                    <div class="flex items-center justify-between gap-md border-b border-outline-variant/30 pb-xs mb-xs">
+                        <span class="font-bold text-label-sm text-primary">${author}</span>
+                        <span class="text-[10px] text-outline">${formatTimeAgo(note.created_at)}</span>
+                    </div>
+                    <p class="text-body-md text-on-surface whitespace-pre-line">${textContent}</p>
+                `;
+                notesList.appendChild(noteDiv);
+            });
+            notesList.scrollTop = notesList.scrollHeight;
+        }
+
+        function renderKBArticles() {
+            const kbSearchVal = document.getElementById("kb-search").value.trim().toLowerCase();
+            const gridContainer = document.getElementById("kb-articles-grid");
+
+            const filteredArticles = kbArticles.filter(art => {
+                return !kbSearchVal || art.title.toLowerCase().includes(kbSearchVal) || art.summary.toLowerCase().includes(kbSearchVal);
+            });
+
+            gridContainer.innerHTML = "";
+            if (filteredArticles.length === 0) {
+                gridContainer.innerHTML = `<div class="col-span-12 text-center text-outline py-8">No articles found.</div>`;
+            } else {
+                filteredArticles.forEach(art => {
+                    const card = document.createElement("div");
+                    card.className = "bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between hover:scale-[1.01] hover:shadow-md transition-all duration-300 group";
+                    card.innerHTML = `
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 bg-secondary-container text-on-secondary-container rounded text-[10px] font-bold uppercase tracking-wider">${art.category}</span>
+                                <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">${art.icon}</span>
+                            </div>
+                            <h4 class="text-headline-md font-headline-md font-bold text-on-surface group-hover:text-primary transition-colors">${art.title}</h4>
+                            <p class="text-body-md text-on-surface-variant line-clamp-3">${art.summary}</p>
+                        </div>
+                        <button onclick="openKBArticle('${art.id}')" class="w-full mt-lg py-2 border border-outline-variant hover:bg-surface-container text-on-surface rounded-lg text-label-md font-bold transition-colors">Read Article</button>
+                    `;
+                    gridContainer.appendChild(card);
+                });
+            }
+        }
+
+        function showKBList() {
+            document.getElementById("kb-grid-section").classList.remove("hidden");
+            document.getElementById("kb-reader-section").classList.add("hidden");
+        }
+
+        function openKBArticle(articleId) {
+            const art = kbArticles.find(a => a.id === articleId);
+            if (!art) return;
+            document.getElementById("kb-reader-title").innerText = art.title;
+            document.getElementById("kb-reader-category").innerText = art.category;
+            document.getElementById("kb-reader-icon").innerText = art.icon;
+            document.getElementById("kb-reader-content").innerHTML = art.content;
+            document.getElementById("kb-grid-section").classList.add("hidden");
+            document.getElementById("kb-reader-section").classList.remove("hidden");
+            document.getElementById("kb-view").scrollTop = 0;
+        }
+
+        function initNotifications() {
+            try {
+                const stored = localStorage.getItem("support_crm_notifications");
+                notifications = stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                notifications = [];
+            }
+            const bellBtn = document.getElementById("header-notifications-btn");
+            const dropdownPanel = document.getElementById("notifications-dropdown");
+            const markAllBtn = document.getElementById("mark-all-read-btn");
+
+            bellBtn.addEventListener("click", (e) => { e.stopPropagation(); dropdownPanel.classList.toggle("hidden"); });
+            document.addEventListener("click", (e) => { if (!document.getElementById("notifications-container").contains(e.target)) dropdownPanel.classList.add("hidden"); });
+            markAllBtn.addEventListener("click", (e) => { e.stopPropagation(); markAllNotificationsAsRead(); });
+            renderNotifications();
+        }
+
+        function saveNotifications() { localStorage.setItem("support_crm_notifications", JSON.stringify(notifications)); }
+
+        function addNotification(title, message, ticketId = null) {
+            const newNotif = { id: "notif_" + Date.now() + "_" + Math.floor(Math.random() * 1000), title, message, ticket_id: ticketId, read: false, created_at: new Date().toISOString() };
+            notifications.unshift(newNotif);
+            if (notifications.length > 30) notifications = notifications.slice(0, 30);
+            saveNotifications();
+            renderNotifications();
+        }
+
+        function renderNotifications() {
+            const badge = document.getElementById("notifications-badge");
+            const listContainer = document.getElementById("notifications-list");
+            const unreadCount = notifications.filter(n => !n.read).length;
+
+            if (unreadCount > 0) { badge.innerText = unreadCount; badge.classList.remove("hidden"); } else { badge.classList.add("hidden"); }
+            listContainer.innerHTML = "";
+            if (notifications.length === 0) {
+                listContainer.innerHTML = `<div class="px-4 py-8 text-center text-outline italic text-body-md">No notifications.</div>`;
+            } else {
+                notifications.forEach(n => {
+                    const item = document.createElement("div");
+                    item.className = `${n.read ? "bg-surface-container-lowest" : "bg-primary/5"} px-4 py-3 flex gap-3 hover:bg-surface-container/35 transition-colors cursor-pointer text-left items-start`;
+                    item.onclick = (e) => { e.stopPropagation(); markNotificationAsRead(n.id); dropdownPanel.classList.add("hidden"); if (n.ticket_id) openTicketDetail(n.ticket_id); };
+                    item.innerHTML = `
+                        <div class="w-8 h-8 rounded-full bg-primary-container/20 text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">info</span></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-2"><span class="font-bold text-label-sm text-on-surface truncate">${n.title}</span><span class="text-[9px] text-outline shrink-0">${formatTimeAgo(n.created_at)}</span></div>
+                            <p class="text-body-md text-on-surface-variant mt-1 leading-snug break-words">${n.message}</p>
+                        </div>
+                        ${n.read ? "" : '<span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>'}
+                    `;
+                    listContainer.appendChild(item);
+                });
+            }
+        }
+
+        function markNotificationAsRead(id) { notifications = notifications.map(n => n.id === id ? { ...n, read: true } : n); saveNotifications(); renderNotifications(); }
+        function markAllNotificationsAsRead() { notifications = notifications.map(n => ({ ...n, read: true })); saveNotifications(); renderNotifications(); }
+
+        function initTheme() {
+            const themeToggleBtn = document.getElementById("theme-toggle-btn");
+            const themeToggleIcon = document.getElementById("theme-toggle-icon");
+            function updateThemeUI() { themeToggleIcon.innerText = document.documentElement.classList.contains("dark") ? "light_mode" : "dark_mode"; }
+            themeToggleBtn.addEventListener("click", () => {
+                if (document.documentElement.classList.contains("dark")) { document.documentElement.classList.remove("dark"); localStorage.setItem("theme", "light"); }
+                else { document.documentElement.classList.add("dark"); localStorage.setItem("theme", "dark"); }
+                updateThemeUI();
+            });
+            updateThemeUI();
+        }
+
+        function getInitials(name) {
+            if (!name) return "?";
+            const clean = name.replace(/\([^)]*\)/g, "").trim();
+            const parts = clean.split(/\s+/);
+            return parts.length === 1 ? parts[0].charAt(0).toUpperCase() : (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+        }
+
+        function getAvatarBgClass(name) {
+            if (!name) return "bg-secondary-container text-on-secondary-container";
+            const hash = name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            const classes = ["bg-indigo-600 text-white", "bg-emerald-600 text-white", "bg-rose-600 text-white", "bg-amber-600 text-white", "bg-sky-600 text-white", "bg-violet-600 text-white"];
+            return classes[hash % classes.length];
+        }
+
+        function getStatusBadgeClass(status) {
+            const s = (status || "").toLowerCase();
+            if (s === "open") return "bg-error-container text-on-error-container";
+            if (s === "pending" || s === "in progress") return "bg-secondary-container text-on-secondary-container";
+            if (s === "resolved" || s === "closed") return "bg-green-100 text-green-800 border border-green-200";
+            return "bg-surface-container-high text-outline";
+        }
+
+        function getStatusDotClass(status) {
+            const s = (status || "").toLowerCase();
+            if (s === "open") return "bg-error";
+            if (s === "pending" || s === "in progress") return "bg-secondary";
+            if (s === "resolved" || s === "closed") return "bg-green-600";
+            return "bg-outline";
+        }
+
+        function formatTimeAgo(dateStr) {
+            if (!dateStr) return "";
+            let date;
+            try { date = new Date(dateStr); if (isNaN(date.getTime())) date = new Date(dateStr.replace(" ", "T")); } catch (e) { return dateStr; }
+            const now = new Date();
+            const diffMin = Math.floor((now - date) / 60000);
+            const diffHr = Math.floor(diffMin / 60);
+            const diffDays = Math.floor(diffHr / 24);
+
+            if (diffMin < 1) return "Just now";
+            if (diffMin < 60) return `${diffMin}m ago`;
+            if (diffHr < 24) return `${diffHr}h ago`;
+            if (diffDays < 7) return `${diffDays} days ago`;
+            return date.toLocaleDateString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+        }
+    </script>
+</body>
+
+</html>
