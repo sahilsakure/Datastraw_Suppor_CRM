@@ -55,21 +55,21 @@
 
 ---
 
-### 📸 Interface Showcase
+---
+
+## 📸 Interface Showcase
 
 <div align="center">
 
-  #### 🖥️ Main Dashboard — Ticket Command Center
+  ### **🖥️ Main Dashboard — Ticket Command Center**
   *Real-time ticket monitoring, live status indicators, and global search.*
-  <br /><br />
-  <img src="./Frontend/images/dashboard.png" width="90%" alt="Support CRM Dashboard View" />
 
-  <br /><br /><br />
+  <img src="./Frontend/images/dashboard.png" width="95%" alt="Support CRM Dashboard View" />
 
-  #### 📝 Ticket Management & Internal Notes
+  ### **📝 Ticket Management & Internal Notes**
   *Detailed ticket inspect view with real-time audit trail and staff notes.*
-  <br /><br />
-  <img src="./Frontend/images/ticket-details.png" width="90%" alt="Ticket Details View" />
+
+  <img src="./Frontend/images/ticket-details.png" width="95%" alt="Ticket Details View" />
 
 </div>
 
