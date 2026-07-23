@@ -5,9 +5,8 @@
 
   <br />
 
-  <!-- LOCAL HALFTONE GIF ANIMATION -->
- <img src="./Frontend/gifs/try1.gif" width="100px" height="`100px" />
-
+<!-- HALFTONE GIF (PROPERLY PROPORTIONED FOR 1920x810) -->
+  <img src="./Frontend/gifs/try1.gif" width="600px" />
   <br /><br />
 
   <!-- DYNAMIC BADGES -->
