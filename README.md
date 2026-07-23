@@ -6,7 +6,7 @@
   <br />
 
   <!-- LOCAL HALFTONE GIF ANIMATION -->
-  <img src="./Frontend/gifs/efecto-recording-ezgif.com-effects.gif.gif" width="430px" />
+  <img src="https://github.com/sahilsakure/Datastraw_Suppor_CRM/raw/main/Frontend/gifs/efecto-recording.gif" width="300px" height="300px" />
 
   <br /><br />
 
