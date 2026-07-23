@@ -6,7 +6,7 @@
   <br />
 
   <!-- LOCAL HALFTONE GIF ANIMATION -->
-  <img src="https://github.com/sahilsakure/Datastraw_Suppor_CRM/raw/main/Frontend/gifs/try1.gif" width="300px" height="300px" />
+<img src="https://github.com/sahilsakure/Datastraw_Suppor_CRM/raw/main/Frontend/gifs/try1.gif" width="300px" height="300px" />
 
   <br /><br />
 
