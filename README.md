@@ -5,8 +5,9 @@
 
   <br />
 
-<!-- HALFTONE GIF (PROPERLY PROPORTIONED FOR 1920x810) -->
+  <!-- HALFTONE GIF (PROPERLY PROPORTIONED FOR 1920x810) -->
   <img src="./Frontend/gifs/try1.gif" width="600px" />
+
   <br /><br />
 
   <!-- DYNAMIC BADGES -->
