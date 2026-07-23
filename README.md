@@ -6,7 +6,7 @@
   <br />
 
   <!-- LOCAL HALFTONE GIF ANIMATION -->
- <img src="./Frontend/gifs/try1.gif" width="300px" height="300px" />
+ <img src="./Frontend/gifs/try1.gif" width="100px" height="`100px" />
 
   <br /><br />
 
