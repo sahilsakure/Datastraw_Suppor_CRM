@@ -8,7 +8,7 @@
   <!-- HALFTONE GIF (PROPERLY PROPORTIONED FOR 1920x810) -->
   <img src="./Frontend/gifs/test4.gif" width="600px" />
 
-  <br /><b
+  <br /><b>
 
   <!-- DYNAMC BADGES -->
   <p align="center">
