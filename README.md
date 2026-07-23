@@ -6,7 +6,7 @@
   <br />
 
   <!-- LOCAL HALFTONE GIF ANIMATION -->
-  <img src="./Frontend/gifs/efecto-recording.gif" width="260px" />
+  <img src="./Frontend/gifs/efecto-recording-ezgif.com-effects.gif.gif" width="430px" />
 
   <br /><br />
 
