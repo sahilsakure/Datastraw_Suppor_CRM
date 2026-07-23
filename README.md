@@ -6,11 +6,11 @@
   <br />
 
   <!-- HALFTONE GIF (PROPERLY PROPORTIONED FOR 1920x810) -->
-  <img src="./Frontend/gifs/test3.gif" width="600px" />
+  <img src="./Frontend/gifs/test4.gif" width="600px" />
 
-  <br /><br />
+  <br /><b
 
-  <!-- DYNAMIC BADGES -->
+  <!-- DYNAMC BADGES -->
   <p align="center">
     <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white" />
     <img src="https://img.shields.io/badge/FastAPI-0.100+-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
