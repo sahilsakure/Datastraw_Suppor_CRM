@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ticket Details | Support CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        /* Custom scrollbar for deep-dive content */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#943700",
+                        "on-primary-fixed": "#00174b",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "on-tertiary-container": "#ffede6",
+                        "primary": "#004ac6",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-low": "#f2f4f6",
+                        "tertiary-container": "#bc4800",
+                        "secondary-container": "#d5e3fc",
+                        "on-surface-variant": "#434655",
+                        "surface": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-variant": "#e0e3e5",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed": "#d5e3fc",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-container": "#eeefff",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#191c1e",
+                        "primary-container": "#2563eb",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary-fixed": "#ffdbcd",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-bright": "#f7f9fb",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "surface-tint": "#0053db",
+                        "secondary": "#515f74",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-tertiary-fixed": "#360f00",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-surface": "#191c1e",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#eceef0",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#57657a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "base": "4px",
+                        "gutter": "24px",
+                        "lg": "24px",
+                        "margin-desktop": "32px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-sm": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-screen w-[280px] z-50 bg-surface-container-low border-r border-outline-variant flex flex-col py-lg">
+<div class="px-md mb-xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-bold text-on-surface">Support CRM</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Enterprise Support</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<!-- Tickets Active State -->
+<a class="border-l-4 border-primary bg-secondary-container text-on-secondary-container font-bold flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+<span class="text-label-md font-label-md">Tickets</span>
+</a>
+<a class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-md font-label-md">Customers</span>
+</a>
+<a class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-label-md font-label-md">Knowledge Base</span>
+</a>
+<a class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-md space-y-1">
+<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 mb-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+                Create Ticket
+            </button>
+<a class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<a class="text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Top Navigation -->
+<header class="fixed top-0 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md z-40 border-b border-outline-variant flex items-center justify-between px-margin-desktop ml-[280px] w-[calc(100%-280px)]">
+<div class="flex items-center gap-4">
+<nav class="flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant">
+<span>Tickets</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">TIC-4829</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">help</span>
+<div class="flex items-center gap-3 border-l border-outline-variant pl-6">
+<img alt="Support Agent Avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A professional headshot of a friendly support agent in a clean, modern corporate setting. The person has a warm, approachable expression and is wearing professional attire. The lighting is soft and natural, emphasizing a bright and professional light-mode aesthetic consistent with high-end CRM interfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiJY07JJEfhJGhwjw6-A5XBsHjG5ErKL4ZxytydmU4lCc6Bfuq0tphfwKOZ_TgfLC4D-ilSxh0VnAchqp7RMlSCVvTYhXvYLIV7pX4N53Gv50K8t_lK8727ewPW7cfqllPEdu5fNQiCxD_277e9tW4aRDyfeBXVymfG2T0c4EpBFkKB1X3yvN1EosGMKHTaXpj3yddNf9iQfPkFau3587KTrTnowdutA6Mz1Kgiur5mNgWHxK3tTCSfxJexbVRkyFCwgzA5AxN6qs"/>
+<div class="flex flex-col">
+<span class="text-label-md font-label-md font-bold text-on-surface">Alex Rivera</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">Senior Agent</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[280px] pt-16 min-h-screen">
+<div class="max-w-[1600px] mx-auto p-margin-desktop flex flex-col gap-gutter">
+<!-- Ticket Header Summary -->
+<div class="flex items-center justify-between bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<span class="text-display-sm font-display-sm">TIC-4829: Billing Discrepancy</span>
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-label-sm font-label-sm">High Priority</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="flex items-center gap-1 text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                            Opened 2 hours ago
+                        </span>
+<span class="flex items-center gap-1 text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">person</span>
+                            Assigned to me
+                        </span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="px-md py-2 border border-outline-variant text-secondary rounded-lg font-label-md hover:bg-surface-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">print</span> Print
+                    </button>
+<button class="px-md py-2 border border-outline-variant text-secondary rounded-lg font-label-md hover:bg-surface-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">share</span> Share
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Details & Description -->
+<div class="col-span-8 flex flex-col gap-gutter">
+<!-- Main Ticket Info Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+<div class="p-lg border-b border-outline-variant bg-surface-container-low">
+<h3 class="text-headline-md font-headline-md text-on-surface">Original Description</h3>
+</div>
+<div class="p-lg space-y-6">
+<div class="prose max-w-none">
+<p class="text-body-lg font-body-lg text-on-surface leading-relaxed">
+                                    Hello support team, I'm reaching out because I noticed an extra charge on my last invoice (INV-2023-089). 
+                                    I am currently on the Professional Monthly plan, which should be $49.00, but I was charged $129.00 this month. 
+                                    I haven't added any new users or changed my subscription level. Could you please look into this and process a refund for the difference?
+                                </p>
+<p class="text-body-lg font-body-lg text-on-surface mt-4">
+                                    Best regards,<br/>
+                                    Sarah Jenkins
+                                </p>
+</div>
+<!-- Attachments -->
+<div class="pt-6 border-t border-outline-variant">
+<h4 class="text-label-md font-label-md text-on-surface-variant mb-3">Attachments (1)</h4>
+<div class="flex items-center gap-3 p-3 border border-outline-variant rounded-lg w-fit hover:bg-surface-container-low cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-primary">description</span>
+<div class="flex flex-col">
+<span class="text-label-md font-label-md">invoice_2023_089.pdf</span>
+<span class="text-[10px] text-on-surface-variant">1.2 MB</span>
+</div>
+<span class="material-symbols-outlined ml-4 text-on-surface-variant hover:text-on-surface">download</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Conversation/Notes Section -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant flex flex-col">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h3 class="text-headline-md font-headline-md text-on-surface">Activity &amp; Notes</h3>
+<div class="flex p-1 bg-surface-container-low rounded-lg gap-1">
+<button class="px-4 py-1.5 bg-surface-container-lowest text-primary font-bold rounded-md shadow-sm text-label-md">Internal Notes</button>
+<button class="px-4 py-1.5 text-secondary text-label-md">Customer Reply</button>
+</div>
+</div>
+<div class="p-lg space-y-6 max-h-[500px] overflow-y-auto">
+<!-- Existing Note -->
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container">person</span>
+</div>
+<div class="flex flex-col gap-1 flex-1">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md font-bold">James Wilson (Lead Agent)</span>
+<span class="text-[12px] text-on-surface-variant">45m ago</span>
+</div>
+<div class="p-4 bg-tertiary-container/10 border border-tertiary-container/20 rounded-xl rounded-tl-none">
+<p class="text-body-md font-body-md text-on-surface">I've verified the transaction on Stripe. It looks like a legacy tier was accidentally triggered during the last database migration. I'm waiting for Billing Dept to confirm the refund capability.</p>
+</div>
+</div>
+</div>
+<!-- New Note Interaction -->
+<div class="flex gap-4 pt-4">
+<img alt="Support Agent Avatar" class="w-10 h-10 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxOLxfiMzupeyrPW8k9mL9TE1iHdguTZXCz3293Py7_n5Vupn35kSnMWWSmVRZZ9ks52J3y1JcvvfDjjgatFizjE6gZs_DYdUlKTBf2bkOekT8tbGIBJvc5X-lDphp4NGVkslptfO_wdq6p7Bab6eWAn9egqhzuttFjGKSwYWsZ3mAs2atP2bMdnLLfPxgsNW_5rDhu6n1WXCQzDOmLmpFCRQ6pz5oGQPU5XrJiqaCvxD2Brg97EBOaJcijqA2Xafv_2ImypdXyfk"/>
+<div class="flex-1">
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">Add an internal note...</label>
+<textarea class="w-full min-h-[120px] p-md border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-body-md font-body-md resize-none" placeholder="Type your observations here. This is only visible to the team."></textarea>
+<div class="mt-2 flex justify-end gap-2">
+<button class="px-md py-1.5 text-secondary hover:bg-surface-container rounded-lg text-label-md">Discard</button>
+<button class="px-md py-1.5 bg-primary text-on-primary rounded-lg text-label-md font-bold">Post Note</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Customer & Status Sidebar -->
+<div class="col-span-4 flex flex-col gap-gutter">
+<!-- Customer Profile Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-lg">
+<div class="flex flex-col items-center text-center mb-6">
+<div class="w-20 h-20 rounded-full border-4 border-surface-container overflow-hidden mb-4">
+<img alt="Customer Avatar" data-alt="A professional portrait of a customer, a young professional woman with a confident smile. She is in a minimalist office environment with blurred plants in the background. The lighting is bright and clean, reflecting a high-trust, premium enterprise support atmosphere with soft blue and white tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBApYZ7F_RD2O5yclkd9CDzKn-T5gKjBYDQa23MsiESISxZH28WNa8nZbdCRqznw167yveEDU3vbb3C7xRfFNZVCFY8YKzwh1CefHJCp1WFEBpkMzLUeBvEhW9FVRTdULJMGD12nHEbeCbq_EICEl5S5rKHDeuDjYP-O843XbsqhjHMD4O7RMz5OmN2W-SVbuJdDEnUykvcVxMLuEGnHKrfHoCqda9dJSlkJf5F0u6pJKDwkzYeopAIKanvkNUJoyjJOu-DOD04nlg"/>
+</div>
+<h4 class="text-headline-md font-headline-md text-on-surface">Sarah Jenkins</h4>
+<p class="text-label-md font-label-md text-primary">sarah.j@acme-corp.com</p>
+</div>
+<div class="space-y-4 pt-4 border-t border-outline-variant">
+<div class="flex justify-between">
+<span class="text-label-md font-label-md text-on-surface-variant">Company</span>
+<span class="text-label-md font-label-md text-on-surface">Acme Corporation</span>
+</div>
+<div class="flex justify-between">
+<span class="text-label-md font-label-md text-on-surface-variant">Plan</span>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded text-[12px] font-bold">PRO</span>
+</div>
+<div class="flex justify-between">
+<span class="text-label-md font-label-md text-on-surface-variant">Tenure</span>
+<span class="text-label-md font-label-md text-on-surface">2.4 Years</span>
+</div>
+<div class="flex justify-between">
+<span class="text-label-md font-label-md text-on-surface-variant">Last Ticket</span>
+<span class="text-label-md font-label-md text-on-surface">3 months ago</span>
+</div>
+</div>
+<button class="w-full mt-6 py-2 border border-outline-variant text-on-surface hover:bg-surface-container rounded-lg text-label-md font-bold transition-all">
+                            View Full History
+                        </button>
+</div>
+<!-- Ticket Interaction Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-lg space-y-6 sticky top-24">
+<h4 class="text-headline-md font-headline-md text-on-surface">Ticket Actions</h4>
+<div class="space-y-2">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Ticket Status</label>
+<div class="relative group">
+<select class="w-full p-3 border border-outline-variant rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 appearance-none bg-white text-body-md font-body-md cursor-pointer">
+<option value="open">Open</option>
+<option selected="" value="pending">Pending</option>
+<option value="resolved">Resolved</option>
+<option value="closed">Closed</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Assignee</label>
+<div class="flex items-center gap-3 p-3 border border-outline-variant rounded-xl">
+<img alt="Me" class="w-6 h-6 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx3810tMXYPwK4gvMTZ9CbtF1pFNEKd6pP4bAX9UWSFcK0DsfQWcj9zcrnGjJI_0Ub8MTKd2QcQi-FdWrsG1a3i_bNEVkNpaIKge0OSIaYZ2U6sdZ6-n1_YsM9NdOa_0e8b2O5_pIGlq_M42QYjX01qgd523kMMHVSJx_X1wTysJTC5ErGB-Lhx1Mouyg_8pQiT5clUOb6smHIUmRrufpeMHPj-EmJE1pLUZGybfrPDDG_fJBLYEsCwPOhnJ2pP1rs7ai7ovHDcME"/>
+<span class="text-label-md font-label-md">Alex Rivera (You)</span>
+<span class="material-symbols-outlined ml-auto text-on-surface-variant cursor-pointer">edit</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Tags</label>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-[12px] flex items-center gap-1">
+                                    Billing <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-[12px] flex items-center gap-1">
+                                    Refund <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+</span>
+<button class="px-3 py-1 border border-dashed border-outline-variant text-on-surface-variant rounded-full text-[12px] flex items-center gap-1 hover:border-primary hover:text-primary">
+<span class="material-symbols-outlined text-[14px]">add</span> Add Tag
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Global Action Footer -->
+<footer class="fixed bottom-0 right-0 left-0 h-20 bg-surface-container-lowest/90 backdrop-blur-md border-t border-outline-variant z-50 ml-[280px] px-margin-desktop flex items-center justify-between">
+<div class="flex items-center gap-4 text-on-surface-variant text-label-md font-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-success">check_circle</span> All changes staged</span>
+<span class="text-outline-variant">|</span>
+<span>Last saved: Just now</span>
+</div>
+<div class="flex gap-4">
+<button class="px-xl py-3 text-secondary font-bold hover:bg-surface-container rounded-xl text-label-md transition-colors">
+                Cancel
+            </button>
+<button class="px-xl py-3 bg-primary text-on-primary font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all text-label-md flex items-center gap-2" id="save-btn">
+<span class="material-symbols-outlined">save</span>
+                Save Changes
+            </button>
+</div>
+</footer>
+<script>
+        // Micro-interaction for the Save button
+        const saveBtn = document.getElementById('save-btn');
+        saveBtn.addEventListener('click', () => {
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span> Saving...`;
+            saveBtn.classList.add('opacity-80');
+            
+            setTimeout(() => {
+                saveBtn.innerHTML = `<span class="material-symbols-outlined">check</span> Saved!`;
+                saveBtn.classList.remove('bg-primary');
+                saveBtn.classList.add('bg-success', 'bg-emerald-600');
+                
+                setTimeout(() => {
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.classList.remove('bg-success', 'bg-emerald-600', 'opacity-80');
+                    saveBtn.classList.add('bg-primary');
+                }, 2000);
+            }, 1200);
+        });
+
+        // Hover effects for the sidebar items
+        const navLinks = document.querySelectorAll('aside nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (!link.classList.contains('bg-secondary-container')) {
+                    navLinks.forEach(l => {
+                        l.className = 'text-secondary flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-all duration-200';
+                    });
+                    link.className = 'border-l-4 border-primary bg-secondary-container text-on-secondary-container font-bold flex items-center gap-3 px-4 py-3';
+                }
+            });
+        });
+    </script>
+</body></html>
