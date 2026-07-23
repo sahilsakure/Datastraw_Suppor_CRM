@@ -6,7 +6,7 @@
   <br />
 
   <!-- HALFTONE GIF (PROPERLY PROPORTIONED FOR 1920x810) -->
-  <img src="./Frontend/gifs/test4.gif" width="600px" />
+  <img src="./Frontend/gifs/test5.gif" width="600px" />
 
   <br /><b>
 
